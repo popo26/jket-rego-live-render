@@ -45,7 +45,6 @@ if RENDER_EXTERNAL_HOSTNAME:
 # Application definition
 
 INSTALLED_APPS = [
-    # 'render.apps.RenderConfig',#New
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -91,22 +90,16 @@ WSGI_APPLICATION = 'rego.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': os.getenv("DATABASE_NAME"),
-#         'USER': os.getenv("DATABASE_USER"),
-#         'PASSWORD': os.getenv("DATABASE_PASSWORD"),
-#         'HOST': '127.0.0.1',
-#         'PORT': '5432',
-#     }
-# }
 
 #Render
+DATABASE_NAME=os.getenv("DATABASE_NAME")
+DATABASE_USER=os.getenv("DATABASE_USER")
+DATABASE_PASSWORD=os.getenv("DATABASE_PASSWORD")
+DATABASE_HOST=os.getenv("DATABASE_HOST")
+
 DATABASES = {
     'default': dj_database_url.config(
-        # Feel free to alter this value to suit your needs.
-        default='postgresql://postgres:postgres@localhost:5432/mysite',
+        default=f'postgresql://{DATABASE_USER}:{DATABASE_PASSWORD}@{DATABASE_HOST}:5432/{DATABASE_NAME}',
         conn_max_age=600
     )
 }
